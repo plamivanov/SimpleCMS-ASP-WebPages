@@ -7,11 +7,11 @@ using System.Web.WebPages;
 using WebMatrix.Data;
 
 /// <summary>
-/// Summary description for Post
+/// Summary description for Tag
 /// </summary>
-public class Post
+public class Tag
 {
-    public Post()
+    public Tag()
     {
 
     }
@@ -31,7 +31,7 @@ public class Post
 
         }
     }
-    public static string Slug
+    public static string FriendlyName
     {
         get
         {
@@ -46,21 +46,17 @@ public class Post
     {
         get
         {
-                var result = PostRepository.Get(Slug);
+                var result = TagRepository.Get(FriendlyName);
 
-                return result ?? CreatePostObject();           
+                return result ?? CreateTagObject();           
         }
     }
-    private static dynamic CreatePostObject()
+    private static dynamic CreateTagObject()
     {
         dynamic obj = new ExpandoObject();
         obj.Id = 0;
-        obj.Title = string.Empty;
-        obj.Content = string.Empty;
-        obj.DateCreated = DateTime.Now;
-        obj.DatePublished = null;
-        obj.Slug = string.Empty;
-        obj.AuthorId = null;
+        obj.Name = string.Empty;
+        obj.UrlFriendlyName = string.Empty;
 
         return obj;
 

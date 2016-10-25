@@ -1,10 +1,10 @@
 ﻿@{
-    Page.Title = "Title goes here";
-    //Layout = "Your Layout Page goes here";
+    Page.Title = "Post Management";
+    Layout = "~/admin/_AdminLayout.cshtml";
 
     var mode = Post.Mode;
     //var slug = Post.Slug;
-    
+
 }
 
 @if (!Post.Mode.IsEmpty())
@@ -26,6 +26,18 @@
 }
 else
 {
-    <p>This should display a list of posts</p>
+    var grid = new WebGrid(
+        source:PostRepository.GetAll(orderBy: "DateCreated DESC"),
+        rowsPerPage:30);
+    @grid.GetHtml(
+    columns: grid.Columns(
+        grid.Column(format:@<a href="~/Admin/post/edit/@item.Slug">Edit</a>),
+        grid.Column(format:@<a href="~/Admin/post/delete/@item.Slug">Delete</a>),
+        grid.Column("Title"),
+        grid.Column("DateCreated",header:"Date Created"),
+        grid.Column("DatePublished",header:"Published"),
+        grid.Column("AuthorId",header:"Author")
+        )
+    )
 }
 

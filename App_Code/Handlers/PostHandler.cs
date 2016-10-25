@@ -45,7 +45,11 @@ public class PostHandler : IHttpHandler
         else if (mode == "new")
         {
             CreatePost(title, content, slug, datePublished, 1);
-        }       
+        }
+        else if (mode == "delete")
+        {
+            DeletePost(slug);
+        }
         context.Response.Redirect("~/admin/post/");
 
     }
@@ -63,6 +67,7 @@ public class PostHandler : IHttpHandler
         }
         PostRepository.Add(title, content,slug, published, authorId);
     }
+
     private static void EditPost(int id,string title, string content, string slug, string datePublished, int authorId)
     {
         var result = PostRepository.Get(id);
@@ -77,6 +82,10 @@ public class PostHandler : IHttpHandler
         }
         //PostRepository.Add(title, content, slug, published, authorId);
         PostRepository.Edit(id, title, content, slug, published, authorId);
+    }
+    private static void DeletePost(string slug)
+    {
+        PostRepository.Remove(slug);
     }
     private static string CreateSlug(string title)
     {
