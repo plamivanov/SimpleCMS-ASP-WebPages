@@ -28,7 +28,7 @@ public class TagHandler : IHttpHandler
     public void ProcessRequest(HttpContext context)
     {
         var mode = context.Request.Form["mode"];
-        var id = context.Request.Form["tagtId"];
+        var id = context.Request.Form["tagId"];
         var name = context.Request.Form["tagName"];
         var friendlyName = context.Request.Form["tagFriendlyName"];
 
@@ -73,6 +73,7 @@ public class TagHandler : IHttpHandler
         }
         //PostRepository.Add(title, content, slug, published, authorId);
         TagRepository.Edit(id,name,friendlyName);
+      
     }
     private static void DeleteTag(string friendlyName)
     {
